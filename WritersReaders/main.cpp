@@ -6,12 +6,12 @@
 #include <cstdlib>
 #include "book.h"
 #include "reader.h"
+#include "writer.h"
 
 int main()
 {
-    std::vector<Book*> books;
-    books.push_back(new Book("test1.txt"));
-    books.push_back(new Book("test.txt"));
-    //Reader r(books);
-    Reader R = new Reader (books);
+    srand(time(NULL));
+    Book *bk = new Book("test.txt");
+    Writer w(bk);
+    Reader r(bk);
 }

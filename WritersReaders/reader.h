@@ -9,10 +9,11 @@
 class Reader
 {
  private:
-    std::vector<Book*> books;
     std::thread rd;
+
+    void run(Book *bn);
  public:
-    Reader(std::vector<Book*> books);
+    Reader(Book *bn);
     ~Reader();
-    void read();
+    void read(Book *bn);
 };

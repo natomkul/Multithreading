@@ -5,9 +5,9 @@
 #include <cstdlib>
 #include "book.h"
 
-Reader::Reader(std::vector<Book*> books) : books(books) 
+Reader::Reader(Book *bn)
 {
-    rd = std::thread(&Reader::read, this);
+    rd = std::thread(&Reader::run, this, bn);
 }
 
 Reader::~Reader()
@@ -18,10 +18,18 @@ Reader::~Reader()
     }
 }
 
-void Reader::read()
+void Reader::run(Book *bn)
 {
-    int idx = rand() % 2;
-    Book* bn = books[idx];
+    while(true)
+    {
+        this->read(bn);
+    }
+}
+
+void Reader::read(Book *bn)
+{
+    auto lk = bn->block();
+    bn->wait_read(lk, 0);
 
     const char *fname = bn->get_title();
 
@@ -33,13 +41,16 @@ void Reader::read()
         return;
     }
 
-    char buff[5];
+    char buff[10];
 
     while (fgets(buff, sizeof(buff), f) != NULL) {
-        printf("%d: %s", idx, buff);
+        printf("%s", buff);
     }
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(500)); 
+    
     fclose(f);
+    bn->counter();
 
     return;
 }

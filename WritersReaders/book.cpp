@@ -2,7 +2,7 @@
 
 Book::Book(const char *bookName) : bName(bookName) {}
 
-const char* Book::get_title()
+const char* Book::get_title() const
 {
     return bName;
 }

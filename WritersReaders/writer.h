@@ -10,9 +10,9 @@ class Writer
 {
  private:
     std::thread wr;
-
-    void run(Wrapper *bw);
+    int id;
+    void run(std::vector<std::shared_ptr<Wrapper>> bw);
  public:
-    Writer(Wrapper *bw);
+    Writer(int id, std::vector<std::shared_ptr<Wrapper>> bw);
     ~Writer();
 };

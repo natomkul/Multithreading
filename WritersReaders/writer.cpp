@@ -6,7 +6,7 @@
 #include "writer.h"
 #include "wrapper.h"
 
-Writer::Writer(Wrapper *bw)
+Writer::Writer(int id, std::vector<std::shared_ptr<Wrapper>> bw) : id(id)
 {
     wr = std::thread(&Writer::run, this, bw);
 }
@@ -19,11 +19,13 @@ Writer::~Writer()
     }
 }
 
-void Writer::run(Wrapper *bw)
+void Writer::run(std::vector<std::shared_ptr<Wrapper>> bw)
 {
     while(true)
     {
-        if (!bw->write())
+        int idx = rand() % bw.size();
+
+        if (!bw[idx]->write(id))
             return;
 
     }

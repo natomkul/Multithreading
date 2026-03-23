@@ -10,9 +10,9 @@ class Reader
 {
  private:
     std::thread rd;
-
-    void run(Wrapper *bw);
+    int id;
+    void run(std::vector<std::shared_ptr<Wrapper>> bw);
  public:
-    Reader(Wrapper *bw);
+    Reader(int id, std::vector<std::shared_ptr<Wrapper>> bw);
     ~Reader();
 };

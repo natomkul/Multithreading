@@ -15,5 +15,5 @@ class Book
  public:
     Book(const char *bookName);
 
-    const char* get_title();
+    const char* get_title() const;
 };

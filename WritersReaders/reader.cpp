@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include "wrapper.h"
 
-Reader::Reader(Wrapper *bw)
+Reader::Reader(int id, std::vector<std::shared_ptr<Wrapper>> bw) : id(id)
 {
     rd = std::thread(&Reader::run, this, bw);
 }
@@ -18,11 +18,13 @@ Reader::~Reader()
     }
 }
 
-void Reader::run(Wrapper *bw)
+void Reader::run(std::vector<std::shared_ptr<Wrapper>> bw)
 {
     while(true)
     {
-        if (!bw->read())
+        int idx = rand() % bw.size();
+
+        if (!bw[idx]->read(id))
             return;
     }
 }

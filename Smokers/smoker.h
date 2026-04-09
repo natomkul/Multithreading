@@ -1,5 +1,6 @@
 #include "tamper.h"
 #include "matches.h"
+#include "logger.h"
 #include <thread>
 #include <vector>
 #include <chrono>
@@ -12,6 +13,7 @@ class Smoker
     int id_s;
     std::thread smk;
 
+    Logger *logg;
     Matches *matches;
     Tamper *tampers;
 
@@ -20,7 +22,7 @@ class Smoker
     void smoking();
     bool process(Matches *matches, Tamper *tampers);
  public:
-    Smoker(int id, Matches *matches, Tamper *tampers);
+    Smoker(int id, Logger *logg, Matches *matches, Tamper *tampers);
 
     ~Smoker();
 };

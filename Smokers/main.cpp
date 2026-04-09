@@ -2,13 +2,19 @@
 
 int main()
 {
-    Matches *mat = new Matches(4);
-    Tamper *tam = new Tamper(2);
+    int m = 4;
+    int l = 3;
+    int k = 8;
 
-    Smoker smok(1, mat, tam);    
-    Smoker smok2(2, mat, tam);    
-    Smoker smok3(3, mat, tam);    
-    Smoker smok4(4, mat, tam);    
-    Smoker smok5(5, mat, tam);    
-    Smoker smok6(6, mat, tam);    
+    Matches *mat = new Matches(m);
+    Tamper *tam = new Tamper(l);
+    Logger *lo = new Logger();
+
+    std::vector<std::unique_ptr<Smoker>> smokers;
+
+    for (int i = 0; i < k; i++)
+    {
+        smokers.push_back(std::make_unique<Smoker>(i, lo, mat, tam));
+    }
 }
+

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cmath>
 #include <thread>
+#include <atomic>
 
 class Counter
 {
@@ -10,10 +11,10 @@ class Counter
     const int n;
     const int start;
 
-    bool ready = false;
     double sum = 0;
 
     std::thread th;
+    std::atomic<bool> ready{false};
  public:
     Counter(const int start, const int n);
     ~Counter();

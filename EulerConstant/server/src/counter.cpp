@@ -18,18 +18,14 @@ void Counter::count()
         sum += 1.0 / i;
     }
 
-    ready = true;
+    ready.store(true);
 
     return;
 }
 
 double Counter::result()
 {
-    while (true)
-    {
-        if (ready)
-        {
-            return sum;
-        }
-    }
+    while (!ready.load()) {}
+    
+    return sum;
 }
